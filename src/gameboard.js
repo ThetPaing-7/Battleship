@@ -22,7 +22,7 @@ export default class Gameboard{
 
         let i = 0
         while(i < ship.length){
-            this.board[horizontal][vertical] = 'ship'
+            this.board[horizontal][vertical] = ship
 
             if(direction === 'horizontal'){
                 vertical++
@@ -31,6 +31,17 @@ export default class Gameboard{
             }
 
             i++
+        }
+    }
+
+    receiveAttack(x,y){
+        if(this.board[x][y] !== 'empty' && this.board[x][y] !== 'miss' && this.board[x][y] !== 'hit'){
+            // record the hit coordinates
+            let ship = this.board[x][y]
+            ship.hit()
+            this.board[x][y] = 'hit'
+        }else{
+            this.board[x][y] = 'miss'
         }
     }
 
@@ -43,4 +54,10 @@ let ship = new Ship(3)
 let test_board = new Gameboard()
 test_board.create()
 test_board.place(ship,[3,1],'horizontal')
+test_board.receiveAttack(3,1)
+test_board.receiveAttack(3,1)
+test_board.receiveAttack(4,1)
+test_board.receiveAttack(4,1)
+test_board.receiveAttack(5,1)
+console.log(ship)
 console.log(test_board.get())
