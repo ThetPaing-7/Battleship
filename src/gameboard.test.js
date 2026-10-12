@@ -76,3 +76,31 @@ test('Check record', ()=>{
     expect(coordinates[4][1]).toBe('miss')
     expect(coordinates[5][1]).toBe('miss')
 })
+
+test('Check All sink',()=>{
+    let test_board = new Gameboard()
+    test_board.create()
+
+    let ship = new Ship(4)
+    test_board.place(ship,[2,1],'horizontal')
+
+    test_board.receiveAttack(2,1)
+    test_board.receiveAttack(2,2)
+    test_board.receiveAttack(2,3)
+    test_board.receiveAttack(2,4)
+
+    expect(test_board.isAllSink()).toBe(true)
+})
+
+
+test('Check still afloat',()=>{
+    let test_board = new Gameboard()
+    test_board.create()
+
+    let ship = new Ship(3)
+    test_board.place(ship,[4,2],'horizontal')
+
+    test_board.receiveAttack(2,1)
+
+    expect(test_board.isAllSink()).toBe(false)
+})

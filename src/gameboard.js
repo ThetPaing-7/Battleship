@@ -40,6 +40,8 @@ export default class Gameboard{
             let ship = this.board[x][y]
             ship.hit()
             this.board[x][y] = 'hit'
+        }else if(this.board[x][y] === 'miss' || this.board[x][y] === 'hit'){
+            
         }else{
             this.board[x][y] = 'miss'
         }
@@ -48,16 +50,14 @@ export default class Gameboard{
     get(){
         return this.board
     }
-}
 
-let ship = new Ship(3)
-let test_board = new Gameboard()
-test_board.create()
-test_board.place(ship,[3,1],'horizontal')
-test_board.receiveAttack(3,1)
-test_board.receiveAttack(3,1)
-test_board.receiveAttack(4,1)
-test_board.receiveAttack(4,1)
-test_board.receiveAttack(5,1)
-console.log(ship)
-console.log(test_board.get())
+
+    isAllSink(){
+        for(let i = 0; i < this.board.length; i++){
+            if(this.board[i].some(value => value !== null && typeof value == 'object')){
+                return false
+            }
+        }
+        return true
+    }
+}
