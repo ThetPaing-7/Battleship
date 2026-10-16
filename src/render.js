@@ -14,6 +14,14 @@ export default class Render{
                 let div = document.createElement("div")
                 div.setAttribute('class','item')
                 div.dataset.ground_condition = main_board[i][j]
+                let condition = main_board[i][j]
+
+                if(condition === 'miss'){
+                    div.textContent = "❌"
+                }else if(condition === 'hit'){
+                    div.textContent = "💥"
+                }
+
                 board_container.append(div)
             }
         }

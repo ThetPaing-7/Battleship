@@ -1,7 +1,7 @@
-export default class Player{
-    constructor(name, type, gameBoard){
-        this.type = type
-        this.name =  name
-        this.gameBoard = gameBoard
-    }
+export default class Player {
+  constructor(name, type, gameBoard) {
+    this.type = type;
+    this.name = name;
+    this.gameBoard = gameBoard;
+  }
 }

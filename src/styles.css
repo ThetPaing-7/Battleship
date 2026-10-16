@@ -1,26 +1,38 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-
-:root{
-    --item_background_color : red
+:root {
+  --item_background_color: rgb(118, 224, 118);
+  --item_background_color_hit: rgb(224, 43, 100);
+  --item_background_color_miss: blue;
 }
 
-
-.grids-holders{
-    display: grid;
-    width: 500px;
-    height: 500px;
-    gap: 1px;
-    grid-template-columns: repeat(10,1fr);
-    grid-template-rows: repeat(10,1fr);
+.grids-holders {
+  display: grid;
+  width: 500px;
+  height: 500px;
+  gap: 1px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
 }
 
-
-.item{
-    border-radius: 4px;
-    background-color:var(--item_background_color);
+.item {
+  border-radius: 4px;
+  background-color: var(--item_background_color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
 }
+
+[data-ground_condition="hit"] {
+  background-color: var(--item_background_color_hit);
+}
+
+[data-ground_condition="miss"] {
+  background-color: var(--item_background_color_miss);
+}
+    
