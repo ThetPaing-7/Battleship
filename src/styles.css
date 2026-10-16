@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+:root{
+    --item_background_color : red
+}
+
+
+.grids-holders{
+    display: grid;
+    width: 500px;
+    height: 500px;
+    gap: 1px;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(10,1fr);
+}
+
+
+.item{
+    border-radius: 4px;
+    background-color:var(--item_background_color);
+}

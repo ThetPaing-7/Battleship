@@ -50,14 +50,9 @@ export default class Gameboard{
     get(){
         return this.board
     }
-
-
-    isAllSink(){
-        for(let i = 0; i < this.board.length; i++){
-            if(this.board[i].some(value => value !== null && typeof value == 'object')){
-                return false
-            }
-        }
-        return true
-    }
 }
+
+let ship = new Ship(3)
+let test_board = new Gameboard()
+test_board.create()
+test_board.place(ship,[3,1],'horizontal')
