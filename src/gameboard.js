@@ -34,11 +34,7 @@ export default class Gameboard {
   }
 
   receiveAttack(x, y) {
-    if (
-      this.board[x][y] !== "empty" &&
-      this.board[x][y] !== "miss" &&
-      this.board[x][y] !== "hit"
-    ) {
+    if (this.isHit(x, y)) {
       // record the hit coordinates
       let ship = this.board[x][y];
       ship.hit();
@@ -46,6 +42,18 @@ export default class Gameboard {
     } else if (this.board[x][y] === "miss" || this.board[x][y] === "hit") {
     } else {
       this.board[x][y] = "miss";
+    }
+  }
+
+  isHit(x, y) {
+    if (
+      this.board[x][y] !== "empty" &&
+      this.board[x][y] !== "miss" &&
+      this.board[x][y] !== "hit"
+    ) {
+      return true;
+    } else {
+      return false;
     }
   }
 
