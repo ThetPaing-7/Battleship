@@ -39,9 +39,12 @@ export default class Gameboard {
       let ship = this.board[x][y];
       ship.hit();
       this.board[x][y] = "hit";
+      return true;
     } else if (this.board[x][y] === "miss" || this.board[x][y] === "hit") {
+      return false;
     } else {
       this.board[x][y] = "miss";
+      return false;
     }
   }
 
