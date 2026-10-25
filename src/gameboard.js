@@ -59,6 +59,15 @@ export default class Gameboard {
     }
   }
 
+  getStatus(){
+    let board = this.get()
+
+    return board.flat().reduce((arr,curr)=>{
+      arr[curr] = (arr[curr] || 0) +1
+      return arr
+    },{})
+  }
+
   get() {
     return this.board;
   }
