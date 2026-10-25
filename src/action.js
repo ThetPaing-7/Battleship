@@ -20,4 +20,13 @@ export default class Action {
       return condition;
     }
   }
+
+  getCell(boardID, x,y){
+
+    const board = document.getElementById(boardID);
+
+    return board.querySelector(
+      `.item[data-x="${x}"][data-y="${y}"]`
+    )
+  }
 }
