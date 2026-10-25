@@ -4,6 +4,7 @@ import Gameboard from "./gameboard.js";
 import Ship from "./ship.js";
 import Action from "./action.js";
 import Player from "./player.js";
+import Random_Generate from "./random_generate.js";
 
 let board_one = new Gameboard();
 board_one.create();
@@ -76,19 +77,22 @@ const enemyContainer = document.getElementById("enemy-body");
 function playeOnePlay(event) {
     if (currentPlayer !== 1) return;
 
-    const element = event.target;
+    const element = event.target.closest(".item");
+    if(!element)return
 
     const value = action.Attack(board_one, element, "main-body");
 
     if (value === false) {
-        currentPlayer = 2;
+        currentPlayer = 2
+        computerPlay()
     }
 }
 
 function playerTwoPlay(event) {
     if (currentPlayer !== 2) return;
 
-    const element = event.target;
+    const element = event.target.closest(".item");
+    if(!element)return
 
     const value = actionTwo.Attack(board_two, element, "enemy-body");
 
@@ -97,5 +101,27 @@ function playerTwoPlay(event) {
     }
 }
 
-mainContainer.addEventListener("click", playeOnePlay);
-enemyContainer.addEventListener("click", playerTwoPlay);
+
+function computerPlay(){
+ 
+    if(currentPlayer !== 2) return
+
+    const {x:x,y:y} = Random_Generate.getTwoPoints()
+    const element = actionTwo.getCell("enemy-body",x,y)
+
+    if (!element) {
+        return computerPlay();
+    }
+    const value = actionTwo.Attack(board_two, element,'enemy-body')
+
+    if(value === false){
+        currentPlayer = 1
+    }else{
+        computerPlay()
+    }
+}
+
+
+mainContainer.addEventListener('click',(event) =>{
+    playeOnePlay(event)
+})

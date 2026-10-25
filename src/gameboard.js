@@ -1,5 +1,4 @@
 import Ship from "./ship.js";
-
 export default class Gameboard {
   constructor() {
     this.board = [];
@@ -41,7 +40,7 @@ export default class Gameboard {
       this.board[x][y] = "hit";
       return true;
     } else if (this.board[x][y] === "miss" || this.board[x][y] === "hit") {
-      return false;
+      return;
     } else {
       this.board[x][y] = "miss";
       return false;
