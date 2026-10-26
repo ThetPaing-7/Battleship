@@ -33,7 +33,6 @@ export default class Gameboard {
   }
 
   receiveAttack(x, y) {
-
     // Is All shink
     if (this.isHit(x, y)) {
       // record the hit coordinates
@@ -61,18 +60,20 @@ export default class Gameboard {
     }
   }
 
-  getStatus(){
-    let board = this.get()
+  getStatus() {
+    let board = this.get();
 
-    return board.flat().reduce((arr,curr)=>{
-      arr[curr] = (arr[curr] || 0) +1
-      return arr
-    },{})
+    return board.flat().reduce((arr, curr) => {
+      arr[curr] = (arr[curr] || 0) + 1;
+      return arr;
+    }, {});
   }
 
-  isAllSink(){
-    let board = this.get()
-    return board.flat().every(value => typeof value !== 'object' || value === null)
+  isAllSink() {
+    let board = this.get();
+    return board
+      .flat()
+      .every((value) => typeof value !== "object" || value === null);
   }
 
   get() {

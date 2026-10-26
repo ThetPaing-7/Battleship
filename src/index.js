@@ -40,7 +40,6 @@ let page_two = new Render();
 page_two.displayBoard(board_two, "user-two", "enemy-body");
 let actionTwo = new Action();
 
-
 // let value;
 // function playeOnePlay(){
 // let container = document.getElementById("main-body");
@@ -57,98 +56,110 @@ let actionTwo = new Action();
 
 // function playerTwoPlay(){
 //     let containe_two = document.getElementById("enemy-body");
-    
+
 //     containe_two.addEventListener("click", (event) => {
 //       let element = event.target;
 //       actionTwo.Attack(board_two, element, "enemy-body");
 //     });
 // }
 
-
 // playeOnePlay()
 
 // value === true ? playeOnePlay() : playerTwoPlay()
 
-let currentPlayer = 1;
+const playing = () => {
+  let currentPlayer = 1;
 
-const mainContainer = document.getElementById("main-body");
-const enemyContainer = document.getElementById("enemy-body");
+  const mainContainer = document.getElementById("main-body");
+  const enemyContainer = document.getElementById("enemy-body");
 
-function playeOnePlay(event, isAganistComputer = true) {
+  function playeOnePlay(event, isAganistComputer = true) {
     if (currentPlayer !== 1) return;
 
     const element = event.target.closest(".item");
-    if(!element)return
+    if (!element) return;
+
+    if (board_one.isAllSink()) {
+      alert("Player One lost");
+      return;
+    }
 
     const value = action.Attack(board_one, element, "main-body");
 
     if (value === false) {
-        currentPlayer = 2
+      currentPlayer = 2;
 
-        if(isAganistComputer === true){
-            computerPlay()
-        }
+      if (isAganistComputer === true) {
+        computerPlay();
+      }
     }
-}
+  }
 
-function playerTwoPlay(event) {
+  function playerTwoPlay(event) {
     if (currentPlayer !== 2) return;
 
     const element = event.target.closest(".item");
-    if(!element)return
+    if (!element) return;
 
     const value = actionTwo.Attack(board_two, element, "enemy-body");
 
     if (value === false) {
-        currentPlayer = 1;
+      currentPlayer = 1;
     }
-}
+  }
 
+  function computerPlay() {
+    if (currentPlayer !== 2) return;
 
-function computerPlay(){
- 
-    if(currentPlayer !== 2) return
+    if (board_two.isAllSink()) {
+      console.log("Player Two lost");
+    }
 
-    const {x:x,y:y} = Random_Generate.getTwoPoints()
-    const element = actionTwo.getCell("enemy-body",x,y)
+    const { x: x, y: y } = Random_Generate.getTwoPoints();
+    const element = actionTwo.getCell("enemy-body", x, y);
 
     if (!element) {
-        return computerPlay();
+      return computerPlay();
     }
-    const value = actionTwo.Attack(board_two, element,'enemy-body')
+    const value = actionTwo.Attack(board_two, element, "enemy-body");
 
-    if(value === false){
-        currentPlayer = 1
-    }else{
-        computerPlay()
+    if (value === false) {
+      currentPlayer = 1;
+    } else {
+      computerPlay();
     }
-}
+  }
 
-// to play playerone vs playertwo
-function playerVsPlayer(){
+  // to play playerone vs playertwo
+  function playerVsPlayer() {
+    let isAganistComputer = false;
+    mainContainer.addEventListener("click", (event) => {
+      playeOnePlay(event, isAganistComputer);
+    });
 
-    let isAganistComputer = false
-    mainContainer.addEventListener('click',(event)=>{
-        playeOnePlay(event, isAganistComputer)
-    })
+    enemyContainer.addEventListener("click", (event) => {
+      playerTwoPlay(event);
+    });
+  }
 
-
-    enemyContainer.addEventListener('click',(event)=>{
-        playerTwoPlay(event)
-    })
-
-}
-
-
-
-// to play computer vs player
-function playerVsComputer(){
-    mainContainer.addEventListener('click',(event) =>{
-    playeOnePlay(event)
-    console.log(board_one.getStatus())
-    console.log(board_two.getStatus())
-})
-}
+  // to play computer vs player
+  function playerVsComputer() {
+    mainContainer.addEventListener("click", (event) => {
+      playeOnePlay(event);
+      console.log(board_one.getStatus());
+      console.log(board_two.getStatus());
+    });
+  }
 
 
-playerVsPlayer()
+  function islost(){
+    
+  }
+
+  return { playerVsComputer, playerVsPlayer };
+};
+
+let game = playing();
+game.playerVsComputer();
+
+console.log(board_one.isAllSink());

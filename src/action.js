@@ -2,7 +2,6 @@ import Render from "./render.js";
 
 export default class Action {
   Attack(board, element, id) {
-    
     if (element.classList.value === "item") {
       console.log(element);
       // get coordinates from element
@@ -11,7 +10,6 @@ export default class Action {
       // Receive attack in gameboard
 
       let condition = board.receiveAttack(x, y);
-
       // // get board holder from dom
       // container.textContent = ""
       let render = new Render();
@@ -21,12 +19,9 @@ export default class Action {
     }
   }
 
-  getCell(boardID, x,y){
-
+  getCell(boardID, x, y) {
     const board = document.getElementById(boardID);
 
-    return board.querySelector(
-      `.item[data-x="${x}"][data-y="${y}"]`
-    )
+    return board.querySelector(`.item[data-x="${x}"][data-y="${y}"]`);
   }
 }
