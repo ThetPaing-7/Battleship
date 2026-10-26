@@ -79,9 +79,9 @@ const playing = () => {
     const element = event.target.closest(".item");
     if (!element) return;
 
-    if (board_one.isAllSink()) {
-      alert("Player One lost");
-      return;
+    if(islost(board_one)){
+        alert('Player One has lost! Please restart')
+        return
     }
 
     const value = action.Attack(board_one, element, "main-body");
@@ -101,6 +101,10 @@ const playing = () => {
     const element = event.target.closest(".item");
     if (!element) return;
 
+    if(islost(board_two)){
+        alert('Player Two has lost! Please restart')
+    }
+
     const value = actionTwo.Attack(board_two, element, "enemy-body");
 
     if (value === false) {
@@ -111,8 +115,8 @@ const playing = () => {
   function computerPlay() {
     if (currentPlayer !== 2) return;
 
-    if (board_two.isAllSink()) {
-      console.log("Player Two lost");
+    if(islost(board_two)){
+        alert('Computer Has lost the game')
     }
 
     const { x: x, y: y } = Random_Generate.getTwoPoints();
@@ -152,8 +156,8 @@ const playing = () => {
   }
 
 
-  function islost(){
-    
+  function islost(board){
+    return board.isAllSink()
   }
 
   return { playerVsComputer, playerVsPlayer };
