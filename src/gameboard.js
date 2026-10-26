@@ -71,7 +71,8 @@ export default class Gameboard {
   }
 
   isAllSink(){
-    return this.board.flat().every(value => value === 'empty')
+    let board = this.get()
+    return board.flat().every(value => typeof value !== 'object' || value === null)
   }
 
   get() {
