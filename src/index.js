@@ -74,7 +74,7 @@ let currentPlayer = 1;
 const mainContainer = document.getElementById("main-body");
 const enemyContainer = document.getElementById("enemy-body");
 
-function playeOnePlay(event) {
+function playeOnePlay(event, isAganistComputer = true) {
     if (currentPlayer !== 1) return;
 
     const element = event.target.closest(".item");
@@ -84,7 +84,10 @@ function playeOnePlay(event) {
 
     if (value === false) {
         currentPlayer = 2
-        computerPlay()
+
+        if(isAganistComputer === true){
+            computerPlay()
+        }
     }
 }
 
@@ -121,7 +124,31 @@ function computerPlay(){
     }
 }
 
+// to play playerone vs playertwo
+function playerVsPlayer(){
 
-mainContainer.addEventListener('click',(event) =>{
+    let isAganistComputer = false
+    mainContainer.addEventListener('click',(event)=>{
+        playeOnePlay(event, isAganistComputer)
+    })
+
+
+    enemyContainer.addEventListener('click',(event)=>{
+        playerTwoPlay(event)
+    })
+
+}
+
+
+
+// to play computer vs player
+function playerVsComputer(){
+    mainContainer.addEventListener('click',(event) =>{
     playeOnePlay(event)
+    console.log(board_one.getStatus())
+    console.log(board_two.getStatus())
 })
+}
+
+
+playerVsPlayer()
