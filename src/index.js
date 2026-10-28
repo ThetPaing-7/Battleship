@@ -18,7 +18,6 @@ export default function setup() {
   let ships_length = [5, 4, 4, 3, 3, 3, 3];
   makeAndPutShips(board_one);
 
-  const player_one = new Player("user-one", "Thet Paing Lin", board_one);
   let page = new Render();
   page.displayBoard(board_one, "user-one", "main-body");
 
@@ -32,7 +31,6 @@ export default function setup() {
     }
   }
 
-  const player_two = new Player("user-two", "Thet Paing", board_one);
   let page_two = new Render();
   page_two.displayBoard(board_two, "user-two", "enemy-body");
 }
@@ -50,7 +48,11 @@ export const playing = () => {
     if (!element) return;
 
     if (islost(board_one)) {
-      alert("Player One has lost! Please restart");
+      if(isAganistComputer){
+        alert('Computer Has lost! Please restart')
+      }else{
+        alert("Player One has lost! Please restart");
+      }
       return;
     }
 
