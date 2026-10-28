@@ -5,67 +5,51 @@ import Ship from "./ship.js";
 import Action from "./action.js";
 import Player from "./player.js";
 import Random_Generate from "./random_generate.js";
+import Random_place from "./random_place.js";
+
+
 
 let board_one = new Gameboard();
 board_one.create();
-
-board_one.create();
-let ship_one = new Ship(3);
-let ship_two = new Ship(4);
-
-board_one.place(ship_one, [0, 3], "horizontal");
-board_one.place(ship_one, [7, 1], "vertical");
-board_one.place(ship_one, [2, 1], "vertical");
-board_one.place(ship_one, [3, 1], "vertical");
-board_one.place(ship_two, [6, 1], "horizontal");
-
-const player_one = new Player("user-one", "Thet Paing Lin", board_one);
-let page = new Render();
-page.displayBoard(board_one, "user-one", "main-body");
 let action = new Action();
 
 let board_two = new Gameboard();
 board_two.create();
-let ship_three = new Ship(3);
-let ship_four = new Ship(4);
+let actionTwo = new Action();
 
-board_two.place(ship_three, [0, 3], "horizontal");
-board_two.place(ship_three, [7, 1], "vertical");
-board_two.place(ship_four, [2, 1], "vertical");
-board_two.place(ship_four, [3, 1], "vertical");
-board_two.place(ship_four, [6, 1], "horizontal");
+
+
+function setup(){
+
+let ships_length = [5,4,4,3,3,3,3]
+makeAndPutShips(board_one)
+
+
+const player_one = new Player("user-one", "Thet Paing Lin", board_one);
+let page = new Render();
+page.displayBoard(board_one, "user-one", "main-body");
+
+
+// Start of board two
+makeAndPutShips(board_two)
+
+
+function makeAndPutShips(board){
+  for(let i = 0; i < ships_length.length; i++){
+    const ship = new Ship(ships_length[i])
+    Random_place.placeShip(ship,board)
+  }
+}
+
 
 const player_two = new Player("user-two", "Thet Paing", board_one);
 let page_two = new Render();
 page_two.displayBoard(board_two, "user-two", "enemy-body");
-let actionTwo = new Action();
+}
 
-// let value;
-// function playeOnePlay(){
-// let container = document.getElementById("main-body");
-// container.addEventListener("click", (event) => {
-//   let element = event.target;
-//   value = action.Attack(board_one, element, "main-body");
-// });
-// }
 
-// let container = document.getElementById('main-body')
-// container.addEventListener("click", () => {
-//   console.log(value);
-// });
 
-// function playerTwoPlay(){
-//     let containe_two = document.getElementById("enemy-body");
-
-//     containe_two.addEventListener("click", (event) => {
-//       let element = event.target;
-//       actionTwo.Attack(board_two, element, "enemy-body");
-//     });
-// }
-
-// playeOnePlay()
-
-// value === true ? playeOnePlay() : playerTwoPlay()
+setup()
 
 const playing = () => {
   let currentPlayer = 1;
@@ -164,6 +148,6 @@ const playing = () => {
 };
 
 let game = playing();
-game.playerVsComputer();
+game.playerVsPlayer()
 
 console.log(board_one.isAllSink());
